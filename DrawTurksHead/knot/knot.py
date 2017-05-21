@@ -19,7 +19,7 @@ class Knot(object):
         self.p = p
         self.q = q
         self.d = fractions.gcd(p, q)
-        self._ks = range(self.d)
+        self._ks = list(range(self.d))
         self.p_prime = p // self.d
         self.q_prime = q // self.d
         self.__max_theta = 2 * self.p * self.q_prime
@@ -78,11 +78,11 @@ class Knot(object):
             yield list(self.__make_string_ends(ref_ends, tidied_intersections, k))
 
     def __make_ref_ends(self, tidied_intersections):
-        for (i, theta) in enumerate(sorted(tidied_intersections[0].iterkeys())):
+        for (i, theta) in enumerate(sorted(tidied_intersections[0].keys())):
             yield End(theta, (-1)**i)
 
     def __make_string_ends(self, ref_ends, tidied_intersections, k):
-        for theta in tidied_intersections[k].iterkeys():
+        for theta in tidied_intersections[k].keys():
             altitude = ref_ends[(theta - 2 * k) % (self.__max_theta)].altitude
             yield End(theta, altitude)
 
@@ -108,7 +108,7 @@ class Knot(object):
         assert len(string_segments) % 2 == 0
         it = iter(string_segments)  # Inspired by grouper in https://docs.python.org/2/library/itertools.html#recipes
         if string_segments[0].end.altitude != 1:
-            after = it.next()
+            after = next(it)
             before = self.__rotate_segment(string_segments[-1])
             yield self.__make_bridge(tidied_intersections, segs_by_begin, segs_by_end, k, before, after)
         for before, after in zip(it, it):

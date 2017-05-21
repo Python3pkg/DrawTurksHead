@@ -17,4 +17,4 @@ ctx.translate(800, 600)
 ctx.scale(1, -1)
 """
 
-print min(timeit.repeat("TurksHead(24, 18, 190, 1190, 20).draw(ctx)", repeat=10, number=1, setup=setup))
+print(min(timeit.repeat("TurksHead(24, 18, 190, 1190, 20).draw(ctx)", repeat=10, number=1, setup=setup)))

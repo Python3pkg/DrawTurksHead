@@ -39,7 +39,7 @@ def make_test(p, q):
     yield "        )"
 
 
-print """# coding: utf8
+print("""# coding: utf8
 
 # Copyright 2013-2015 Vincent Jacques <vincent@vincent-jacques.net>
 
@@ -48,9 +48,9 @@ import unittest
 from .knot import Knot, String, Segment, End, Bridge, Tunnel
 
 
-class KnotTestCase(unittest.TestCase):"""
+class KnotTestCase(unittest.TestCase):""")
 
 tests = []
-for p, q in sorted(itertools.product(range(1, 13), repeat=2), key=lambda (p, q): (p + q, p)):
+for p, q in sorted(itertools.product(list(range(1, 13)), repeat=2), key=lambda p_q: (p_q[0] + p_q[1], p_q[0])):
     tests.append("\n".join(make_test(p, q)))
-print "\n\n".join(tests)
+print("\n\n".join(tests))
